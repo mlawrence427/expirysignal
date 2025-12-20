@@ -1,13 +1,18 @@
 {
-  "name": "expirysignal-backend",
-  "version": "0.1.0",
-  "description": "Backend for ExpirySignal — self-hosted expiration signal emitter (read-time only).",
-  "main": "dist/server.js",
+  "name": "expirysignal",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ExpirySignal — self-hosted expiration signal emitter (read-time only).",
+  "main": "dist/backend/src/server.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
-    "build": "tsc",
-    "start": "node dist/server.js",
-    "prisma": "prisma"
+    "dev": "ts-node-dev --respawn --transpile-only backend/src/server.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/backend/src/server.js",
+
+    "prisma:generate": "prisma generate --schema backend/prisma/schema.prisma",
+    "prisma:migrate": "prisma migrate dev --schema backend/prisma/schema.prisma",
+    "prisma:deploy": "prisma migrate deploy --schema backend/prisma/schema.prisma",
+    "prisma:studio": "prisma studio --schema backend/prisma/schema.prisma"
   },
   "dependencies": {
     "@prisma/client": "^5.0.0",

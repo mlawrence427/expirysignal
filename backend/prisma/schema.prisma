@@ -26,5 +26,6 @@ model ExpiryRecord {
   updatedAt DateTime @updatedAt
 
   @@index([subject, scope])
-  @@unique([subject, scope])
+  @@unique([subject, scope], name: "subject_scope")
 }
+
