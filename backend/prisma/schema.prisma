@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ExpiryRecord {
+  id        String   @id @default(cuid())
+
+  /// Entity identifier (user, account, token, scope, or custom key).
+  subject   String
+
+  /// Optional scope identifier (feature, environment, tenant, etc).
+  scope     String?
+
+  /// Expiry timestamp written by the operator's system.
+  expiresAt DateTime
+
+  /// Optional operator-supplied expiry cause attribution (informational only).
+  causeCode String?
+
+  /// Optional operator-supplied renewal hint (informational only).
+  renewable Boolean?
+
+  /// Optional operator-defined metadata (non-authoritative).
+  note      String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([subject, scope])
+  @@unique([subject, scope], name: "subject_scope")
+}
+
